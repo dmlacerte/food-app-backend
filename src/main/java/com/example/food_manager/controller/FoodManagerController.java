@@ -21,7 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.food_manager.model.FoodManager;
 import com.example.food_manager.repository.FoodManagerRepository;
 
-@CrossOrigin(origins = "http://localhost:8081")
+// @CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "https://food-app-frontend.netlify.app/")
 @RestController
 @RequestMapping("/api")
 public class FoodManagerController {
