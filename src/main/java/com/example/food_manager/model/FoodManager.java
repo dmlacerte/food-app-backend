@@ -13,15 +13,18 @@ public class FoodManager {
 	private String type;
 	@Column(name = "days_to_exp")
 	private int daysToExp;
+	@Column(name = "use_this_week")
+	private boolean useThisWeek;
 
     public FoodManager() {
 
 	}
 
-	public FoodManager(String name, String type, int daysToExp) {
+	public FoodManager(String name, String type, int daysToExp, boolean useThisWeek) {
 		this.name = name;
 		this.type = type;
 		this.daysToExp = daysToExp;
+		this.useThisWeek = useThisWeek;
 	}
 
 	public long getId() {
@@ -50,6 +53,14 @@ public class FoodManager {
 
 	public void setDaysToExp(int daysToExp) {
 		this.daysToExp = daysToExp;
+	}
+
+	public boolean getUseThisWeek() {
+		return useThisWeek;
+	}
+
+	public void setUseThisWeek(boolean useThisWeek) {
+		this.useThisWeek = useThisWeek;
 	}
 
     @Override
