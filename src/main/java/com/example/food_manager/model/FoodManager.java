@@ -65,6 +65,6 @@ public class FoodManager {
 
     @Override
 	public String toString() {
-		return "Food Item [id=" + id + ", name=" + name + ", type=" + type + ", daysToExp=" + daysToExp + "]";
+		return "Food Item [id=" + id + ", name=" + name + ", type=" + type + ", daysToExp=" + daysToExp + ", useThisWeek=" + useThisWeek + "]";
 	}
 }
