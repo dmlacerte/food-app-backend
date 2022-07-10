@@ -43,6 +43,6 @@ public class GroceryManager {
 
     @Override
 	public String toString() {
-		return "Food Item [id=" + id + ", name=" + name + ", type=" + type + "]";
+		return "Grocery Item [id=" + id + ", name=" + name + ", type=" + type + "]";
 	}
 }
