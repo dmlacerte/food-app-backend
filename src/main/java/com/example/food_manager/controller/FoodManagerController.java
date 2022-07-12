@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,8 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.food_manager.model.FoodManager;
 import com.example.food_manager.repository.FoodManagerRepository;
 
-// @CrossOrigin(origins = "http://localhost:8081")
-@CrossOrigin(origins = "https://food-app-frontend.netlify.app/")
+@CrossOrigin(origins = {"https://food-app-frontend.netlify.app/", "http://localhost:8081", "http://localhost:19001"})
 @RestController
 @RequestMapping("/api")
 public class FoodManagerController {
@@ -65,7 +65,7 @@ public class FoodManagerController {
 	public ResponseEntity<FoodManager> createFoodItem(@RequestBody FoodManager foodItem) {
 		try {
 			FoodManager _foodItems = foodManagerRepository
-					.save(new FoodManager(foodItem.getName(), foodItem.getType(), foodItem.getDaysToExp()));
+					.save(new FoodManager(foodItem.getName(), foodItem.getType(), foodItem.getUseThisWeek(), foodItem.getExpDate()));
 			return new ResponseEntity<>(_foodItems, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -73,14 +73,28 @@ public class FoodManagerController {
 	}
 
 	@PutMapping("/myfood/{id}")
-	public ResponseEntity<FoodManager> updateFoodItem(@PathVariable("id") long id, @RequestBody FoodManager tutorial) {
-		Optional<FoodManager> tutorialData = foodManagerRepository.findById(id);
+	public ResponseEntity<FoodManager> updateFoodItem(@PathVariable("id") long id, @RequestBody FoodManager foodItem) {
+		Optional<FoodManager> foodItemData = foodManagerRepository.findById(id);
 
-		if (tutorialData.isPresent()) {
-			FoodManager _foodItems = tutorialData.get();
-			_foodItems.setName(tutorial.getName());
-			_foodItems.setType(tutorial.getType());
-			_foodItems.setDaysToExp(tutorial.getDaysToExp());
+		if (foodItemData.isPresent()) {
+			FoodManager _foodItems = foodItemData.get();
+			_foodItems.setName(foodItem.getName());
+			_foodItems.setType(foodItem.getType());
+			_foodItems.setUseThisWeek(foodItem.getUseThisWeek());
+			_foodItems.setExpDate(foodItem.getExpDate());
+			return new ResponseEntity<>(foodManagerRepository.save(_foodItems), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@PatchMapping("/myfood/{id}/{newValue}")
+	public ResponseEntity<FoodManager> updateFoodItem(@PathVariable("id") long id, @PathVariable("newValue") boolean newValue) {
+		Optional<FoodManager> foodItemData = foodManagerRepository.findById(id);
+		
+		if (foodItemData.isPresent()) {
+			FoodManager _foodItems = foodItemData.get();
+			_foodItems.setUseThisWeek(newValue);
 			return new ResponseEntity<>(foodManagerRepository.save(_foodItems), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
