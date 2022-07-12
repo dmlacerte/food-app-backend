@@ -1,6 +1,10 @@
 package com.example.food_manager.model;
 
+import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+
 @Entity
 @Table(name = "food_items")
 public class FoodManager {
@@ -11,8 +15,9 @@ public class FoodManager {
 	private String name;
 	@Column(name = "type")
 	private String type;
-	@Column(name = "days_to_exp")
-	private int daysToExp;
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@Column(name = "expDate")
+	private LocalDate expDate;
 	@Column(name = "use_this_week")
 	private boolean useThisWeek;
 
@@ -20,11 +25,11 @@ public class FoodManager {
 
 	}
 
-	public FoodManager(String name, String type, int daysToExp, boolean useThisWeek) {
+	public FoodManager(String name, String type, boolean useThisWeek, LocalDate expDate) {
 		this.name = name;
 		this.type = type;
-		this.daysToExp = daysToExp;
 		this.useThisWeek = useThisWeek;
+		this.expDate = expDate;
 	}
 
 	public long getId() {
@@ -47,14 +52,6 @@ public class FoodManager {
 		this.type = type;
 	}
 
-	public int getDaysToExp() {
-		return daysToExp;
-	}
-
-	public void setDaysToExp(int daysToExp) {
-		this.daysToExp = daysToExp;
-	}
-
 	public boolean getUseThisWeek() {
 		return useThisWeek;
 	}
@@ -63,8 +60,16 @@ public class FoodManager {
 		this.useThisWeek = useThisWeek;
 	}
 
+	public LocalDate getExpDate() {
+		return expDate;
+	}
+
+	public void setExpDate(LocalDate expDate) {
+		this.expDate = expDate;
+	}
+
     @Override
 	public String toString() {
-		return "Food Item [id=" + id + ", name=" + name + ", type=" + type + ", daysToExp=" + daysToExp + ", useThisWeek=" + useThisWeek + "]";
+		return "Food Item [id=" + id + ", name=" + name + ", type=" + type + ", expDatep=" + expDate + ", useThisWeek=" + useThisWeek + "]";
 	}
 }

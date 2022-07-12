@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.food_manager.model.FoodManager;
 import com.example.food_manager.repository.FoodManagerRepository;
 
-@CrossOrigin(origins = {"https://food-app-frontend.netlify.app/", "http://localhost:8081"})
+@CrossOrigin(origins = {"https://food-app-frontend.netlify.app/", "http://localhost:8081", "http://localhost:19001"})
 @RestController
 @RequestMapping("/api")
 public class FoodManagerController {
@@ -65,7 +65,7 @@ public class FoodManagerController {
 	public ResponseEntity<FoodManager> createFoodItem(@RequestBody FoodManager foodItem) {
 		try {
 			FoodManager _foodItems = foodManagerRepository
-					.save(new FoodManager(foodItem.getName(), foodItem.getType(), foodItem.getDaysToExp(), foodItem.getUseThisWeek()));
+					.save(new FoodManager(foodItem.getName(), foodItem.getType(), foodItem.getUseThisWeek(), foodItem.getExpDate()));
 			return new ResponseEntity<>(_foodItems, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -80,8 +80,8 @@ public class FoodManagerController {
 			FoodManager _foodItems = foodItemData.get();
 			_foodItems.setName(foodItem.getName());
 			_foodItems.setType(foodItem.getType());
-			_foodItems.setDaysToExp(foodItem.getDaysToExp());
 			_foodItems.setUseThisWeek(foodItem.getUseThisWeek());
+			_foodItems.setExpDate(foodItem.getExpDate());
 			return new ResponseEntity<>(foodManagerRepository.save(_foodItems), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
