@@ -2,6 +2,10 @@ package com.example.food_manager.controller;
 
 import com.example.food_manager.model.MealPlan;
 import com.example.food_manager.repository.MealPlanRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,22 +21,22 @@ public class MealPlanController {
     @Autowired
 	MealPlanRepository mealPlanRepository;
 
-    // @GetMapping("/mymealplan")
-    // public ResponseEntity<List<MealPlan>> getAllMealPlanItems() {
-    //     try {
-    //         List<MealPlan> mealPlanItems = new ArrayList<MealPlan>();
+    @GetMapping("/mymealplan")
+    public ResponseEntity<List<MealPlan>> getAllMealPlanItems() {
+        try {
+            List<MealPlan> mealPlanItems = new ArrayList<MealPlan>();
 
-    //         mealPlanRepository.findAll().forEach(mealPlanItems::add);
+            mealPlanRepository.findAll().forEach(mealPlanItems::add);
 
-    //         if (mealPlanItems.isEmpty()) {
-    //             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    //         } else {
-    //             return new ResponseEntity<>(mealPlanItems, HttpStatus.OK);
-    //         }
-    //     } catch (Exception e) {
-    //         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
+            if (mealPlanItems.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(mealPlanItems, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @GetMapping("/mymealplan/{day}/{time}")
     public ResponseEntity<MealPlan> getMealPlanItemById(@PathVariable("day") String day, @PathVariable("time") String time) {
