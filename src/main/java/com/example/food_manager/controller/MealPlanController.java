@@ -83,4 +83,15 @@ public class MealPlanController {
 		}
 	}
 
+    @DeleteMapping("/mymealplan")
+	public ResponseEntity<HttpStatus> deleteAllMealPlanItems() {
+		try {
+			mealPlanRepository.deleteAll();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+
 }
