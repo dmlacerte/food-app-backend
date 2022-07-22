@@ -1,7 +1,7 @@
 # Save Your Food Backend
 
 **Project Description**<br />
-The backend for both the web and mobile versions of the Save Your Food, a food sustainability application. With this app, you can keep a virtual copy of your pantry, track expiration dates, and create grocery lists and meal plans to help with reducing food waste. 
+The backend for both the web and mobile versions of Save Your Food, a food sustainability application. With this app, you can keep a virtual copy of your pantry, track expiration dates, and create grocery lists and meal plans to help with reducing food waste. 
 
 **Link to Deployed API**<br />
 Live version deployed to Heroku at: https://immense-brushlands-47117.herokuapp.com/
